@@ -1,6 +1,6 @@
 # Check Registrayion Number
 
-RegNo = "FE19ARegNo[4] == 'A':096"
+RegNo = "FE19A091"
 
 def isRegNo(RegNo):
 	if len(RegNo) != 8:
