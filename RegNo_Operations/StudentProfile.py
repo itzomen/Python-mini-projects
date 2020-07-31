@@ -17,7 +17,7 @@ regNoRegex = re.compile(r'''(
 # Student's Number Regex
 
 phoneNoRegex = re.compile(r'''(
-    [+]    # + symbol 
+    [+]?    # + symbol 
     (\d{3} | \d{2} )? #country code
     (\s | -)?               #separator
     (\d{3})
@@ -27,3 +27,10 @@ phoneNoRegex = re.compile(r'''(
     (\d{3})
     (\s | -)?
     )''', re.VERBOSE)
+    
+RegNo = 'CT19A096'
+
+if  regNoRegex.match(RegNo):
+	print('Valid Reg No')
+else:
+	print('Invalid Reg No')
