@@ -1,19 +1,13 @@
 
 # Check Registrayion Number
 
-RegNo = "FE19A086"
+import re
 
-def isRegNo(RegNo):
-	if len(RegNo) != 8:
-		return False
-	for i in range(2,4):
-		if not RegNo[i].isdecimal():
-			return False
-	if RegNo[4] != 'A':
-		return False
-	for i in range(5,8):
-		if not RegNo[i].isdecimal():
-			return False
-	return True
-	
-print(isRegNo(RegNo))
+regNoRegex = re.compile(r'FE(\d{2})A(\d{3})')
+
+
+text = "This is the registration number of E FE13A067 and C FE17A008. Do you know FE12A056 ou 6"
+
+mo = regNoRegex.search(text)
+
+print('Registration Numbers:' + mo.group())
