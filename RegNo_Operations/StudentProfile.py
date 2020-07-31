@@ -1,13 +1,29 @@
-
-# Check Registrayion Number
+#python3
+# StudentProfile.py
+#Get student Registration and create profile
+#Get Student Number and add to profile
 
 import re
 
-regNoRegex = re.compile(r'FE(\d{2})A(\d{3})')
+# Registration Number Regex
 
+regNoRegex = re.compile(r'''(
+    ([ACEFLS][RVTDEPCM])  #Faculty
+    (\d{2})      #Year registered
+    ([ABC])        #Category
+    (\d{3})      #Number
+    )''',  re.VERBOSE)
 
-text = "This is the registration number of E FE13A067 and C FE17A008. Do you know FE12A056 ou 6"
+# Student's Number Regex
 
-mo = regNoRegex.search(text)
-
-print('Registration Numbers:' + mo.group())
+phoneNoRegex = re.compile(r'''(
+    [+]    # + symbol 
+    (\d{3} | \d{2} )? #country code
+    (\s | -)?               #separator
+    (\d{3})
+    (\s | -)?
+    (\d{3})
+    (\s | -)?
+    (\d{3})
+    (\s | -)?
+    )''', re.VERBOSE)
