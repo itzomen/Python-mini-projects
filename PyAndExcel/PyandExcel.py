@@ -25,8 +25,7 @@ for row in range(2, sheet.max_row + 1):
 	studentName = sheet['B' + str(row)].value
 	studentsData.append( [studentName, regNo ])
 
-#max student
-maxStudent = len(studentsData)
+
 
 print('Opening Form.xlsx...\n')
 wb = openpyxl.load_workbook('Form.xlsx')
