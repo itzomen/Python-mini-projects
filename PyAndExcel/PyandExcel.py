@@ -46,5 +46,11 @@ for row in range(2, sheet1.max_row + 1):
 #Verifing form infos
 print('Fake Entries')
 for i in formData:
-	if i not in studentsData:
-		print(i)
+		if i not in studentsData:
+			print(i)
+print('Duplicates')
+#printing out duplicates
+for x in formData:
+		if formData.count(x)>1:
+			print(x)				
+		
