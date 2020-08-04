@@ -45,5 +45,5 @@ for row in range(2, sheet1.max_row + 1):
 	
 #Verifing form infos
 for i in formData:
-				if i not in studentsData:
-					print('Row:', formData.index(i) + 2, i)
+	if i not in studentsData:
+		print('Row:', formData.index(i) + 2, i)
