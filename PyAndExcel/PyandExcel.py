@@ -44,6 +44,7 @@ for row in range(2, sheet1.max_row + 1):
 		print('Invalid RegNo row:'+ str(row))
 	
 #Verifing form infos
+print('Fake Entries')
 for i in formData:
 	if i not in studentsData:
-		print('Row:', formData.index(i) + 2, i)
+		print(i)
