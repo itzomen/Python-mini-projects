@@ -1,6 +1,6 @@
 # Automatic Excel checker
 
-I wrote this program to automatically display fake entries and duplicates from data received from an Excel sheet
+I wrote this program to automatically output a file containing fake entries and duplicate data from an Excel sheet
 ## Why I wrote the code
 
 I created a voting poll using Google forms for our end of year Faculty party.
