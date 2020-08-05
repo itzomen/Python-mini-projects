@@ -1,7 +1,7 @@
 #python3
 #PyandExcel.py
 #install openpyxl
-import openpyxl, pprint, re
+import openpyxl, re
 
 
 # Registration Number Regex
@@ -12,44 +12,37 @@ regNoRegex = re.compile(r'''(
     (\d{3})      #Number
     )''',  re.VERBOSE)
     
+def GetExcelData( ):
+	#Reads and creates list of data from two columns of excel file
+	#col1 column having regNo in excel
+	#col2 column having name in excel
+	print('Preparing to read name and associated regular pattern')
+	
+	excel = input('Enter the name of the excel file: ')
+	col1 = input('Enter Column letter with regNo: ')
+	col2 = input('Enter Column letter with name: ')
+	
+	print('Opening '+ excel + '.xlsx...\n')
+	wb = openpyxl.load_workbook(excel +'.xlsx')
+	sheet = wb.active
+	print('Adding Data to '+ excel +' list\n')
+	excel = [ ]
+	for row in range(2, sheet.max_row + 1):
+		regNo = sheet[col1 + str(row)].value
+		studentName = sheet[col2 + str(row)].value
+		if regNoRegex.match(regNo):
+			excel.append( [studentName, regNo ])
+			continue
 
-print('Opening Student.xlsx...\n')
-wb = openpyxl.load_workbook('Students.xlsx')
-#opening the sheet having the data to be read
-sheet = wb['Student Data']
+	return excel
+
+#excel name Students
+#columns AB
 studentsData = [ ]
-
-print('Adding Students Data\n')
-for row in range(2, sheet.max_row + 1):
-	regNo = sheet['A' + str(row)].value
-	studentName = sheet['B' + str(row)].value
-	studentsData.append( [studentName, regNo ])
-
-
-
-print('Opening Form.xlsx...\n')
-wb = openpyxl.load_workbook('Form.xlsx')
-#opening the sheet having the filled infos
-sheet1 = wb['Sheet1']
+studentsData = GetExcelData( )
+print(studentsData)
+#excel name Form	
+#columns CB
 formData = [ ]
-#Adding Form data
-for row in range(2, sheet1.max_row + 1):
-	reg = sheet1['C' + str(row)].value
-	name = sheet1['B' + str(row)].value
-	
-	if regNoRegex.match(reg):
-		formData.append([name, reg])
-	else:
-		print('Invalid RegNo row:'+ str(row))
-	
-#Verifing form infos
-print('Fake Entries')
-for i in formData:
-		if i not in studentsData:
-			print(i)
-print('Duplicates')
-#printing out duplicates
-for x in formData:
-		if formData.count(x)>1:
-			print(x)				
-		
+formData = GetExcelData( )
+print(formData)
