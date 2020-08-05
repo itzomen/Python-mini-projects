@@ -32,17 +32,26 @@ def GetExcelData( ):
 		studentName = sheet[col2 + str(row)].value
 		if regNoRegex.match(regNo):
 			excel.append( [studentName, regNo ])
-			continue
-
+	
+	print('Data extracted Successfully\n')
 	return excel
 
 #excel name Students
 #columns AB
 studentsData = [ ]
 studentsData = GetExcelData( )
-print(studentsData)
 #excel name Form	
 #columns CB
 formData = [ ]
 formData = GetExcelData( )
-print(formData)
+
+#Verifing form infos
+print('Fake Entries')
+for i in formData:
+		if i not in studentsData:
+			print(i)
+print('Duplicates')
+#printing out duplicates
+for x in formData:
+		if formData.count(x)>1:
+			print(x)				
