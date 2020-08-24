@@ -1,4 +1,4 @@
-import requests, json
+import requests, json, os
 from datetime import date
 
 #api to get currencies rates
@@ -13,5 +13,20 @@ def get_latest_rates():
 	else:
 		print('Error getting Rates')
 	new_data = response.json()
-  #  with open('past_data.json', 'w') as file:
-    #	json.dump(new_data['rates'], file)
+	temp = new_data['rates']
+	temp['day'] = str(day)
+	
+	if os.path.isfile('./past_data.json'):
+			pass
+	else:
+	   	with open('past_data.json', 'w') as file:
+	   		json.dump(temp, file)
+	return temp
+	
+def main():
+    rates = get_latest_rates()
+   # h = date(rates['day'])
+    print('done')
+
+if __name__ == '__main__':
+    main()
