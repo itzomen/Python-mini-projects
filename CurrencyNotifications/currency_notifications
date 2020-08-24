@@ -1,13 +1,15 @@
-import requests
+mport requests
 
-URL = 'https://api.exchangeratesapi.io/latest?base=USD'
+#api to get currencies rates
+URL = 'https://www.freeforexapi.com/api/live?pairs=USDEUR'
+
+#getting the json
 response = requests.get(URL)
 if response:
     print('Success!')
 else:
     print('An error has occurred.')
 
-#print(type(r))
-#print(r.content)
-data = response.json()
-print(data)
+
+new_data = response.json()
+print(new_data['rates'])
