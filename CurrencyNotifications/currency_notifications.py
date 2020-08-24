@@ -1,4 +1,4 @@
-mport requests
+import requests
 
 #api to get currencies rates
 URL = 'https://www.freeforexapi.com/api/live?pairs=USDEUR'
