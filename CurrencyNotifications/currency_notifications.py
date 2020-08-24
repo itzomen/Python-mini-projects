@@ -1,4 +1,4 @@
-import requests
+import requests, json
 
 #api to get currencies rates
 URL = 'https://www.freeforexapi.com/api/live?pairs=USDEUR'
@@ -10,6 +10,9 @@ if response:
 else:
     print('An error has occurred.')
 
-
+#saving fetched json into dictionary
 new_data = response.json()
-print(new_data['rates'])
+
+#saving new_data in json file
+with open('past_data.json', 'w') as file:
+	json.dump(new_data['rates'], file)
