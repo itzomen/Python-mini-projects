@@ -3,6 +3,7 @@ from datetime import date, datetime
 
 #api to get currencies rates
 URL = 'https://www.freeforexapi.com/api/live?pairs=USDEUR, USDGBP'
+IFTTT_URL = 'https://maker.ifttt.com/trigger/{}/with/key/{ your key }'
 
 def get_latest_rates():
 	day = date.today()
@@ -35,16 +36,23 @@ def get_latest_rates():
 	   	return temp
 	   	
 def change_in_rates(dict):
-	delta_rates = []
+	delta_rates = {}
 	with open('past_data.json') as f:
 		past_data = json.load(f)
 	del dict['day'], past_data['day']
 	for pair, rates in dict.items():
 		change = rates['rate']-past_data[pair]['rate']
-		delta_rates.append([pair, round(change, 4)])
+		delta_rates[pair] = round(change, 4)
 	return delta_rates
 
-		
+
+def post_to_webhook(event, value):
+    #data that will be sent to IFTTT service
+    data = {'post': value}
+    # inserts event
+    event_url = IFTTT_URL.format(event)
+    # Sends a HTTP POST request to the webhook URL
+    requests.post(event_url, json=data)		
 			
 def main():
     rates = get_latest_rates()
