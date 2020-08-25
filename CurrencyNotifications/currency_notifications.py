@@ -1,5 +1,5 @@
 import requests, json, os
-from datetime import date
+from datetime import date, datetime
 
 #api to get currencies rates
 URL = 'https://www.freeforexapi.com/api/live?pairs=USDEUR, USDGBP'
@@ -17,16 +17,21 @@ def get_latest_rates():
 	temp['day'] = str(day)
 	
 	if os.path.isfile('./past_data.json'):
-			pass
+			#TODO: open past_data.json and verify if created on the same day
+			with open('past_data.json') as file:
+				data = json.load(file)
+				date_created = datetime.strptime(data['day'] , '%Y-%m-%d').date()
+				if date_created != day:
+					with open('past_data.json', 'w') as file:
+						json.dump(temp, file)
+					return temp
 	else:
 	   	with open('past_data.json', 'w') as file:
 	   		json.dump(temp, file)
-	return temp
+	   	return temp
 	
 def main():
     rates = get_latest_rates()
-   # h = date(rates['day'])
-    print('done')
 
 if __name__ == '__main__':
     main()
