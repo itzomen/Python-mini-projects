@@ -10,7 +10,7 @@ def get_latest_rates():
 	#getting the json
 	response = requests.get(URL)
 	if response:
-		print('Sucess!\n')
+		print('Sucess getting rates!\n')
 	else:
 		print('Error getting Rates')
 	new_data = response.json()
@@ -18,7 +18,6 @@ def get_latest_rates():
 	temp['day'] = str(day)
 	
 	if os.path.isfile('./past_data.json'):
-			#TODO: open past_data.json and verify if created on the same day
 			with open('past_data.json') as file:
 				data = json.load(file)
 				date_created = datetime.strptime(data['day'] , '%Y-%m-%d').date()
@@ -52,11 +51,27 @@ def post_to_webhook(event, value):
     # inserts event
     event_url = IFTTT_URL.format(event)
     # Sends a HTTP POST request to the webhook URL
-    requests.post(event_url, json=data)		
+    requests.post(event_url, data)
+    
+def format_data(rate_dict, delta_dict):
+ 	lines = []
+ 	for pair, rates in rate_dict.items():
+ 		current = rates['rate']
+ 		delta = delta_dict[pair]
+ 		print(current, delta)
+ 		line = '{} Rate: <b>{}</b> Change <i>{}</i>'.format(pair, current, delta)
+ 		lines.append(line)
+ 	return '<br>'.join(lines)
+
 			
 def main():
+  #  while input("Running...\n Enter 'quit' to exit\n") != 'quit':
     rates = get_latest_rates()
-    print(change_in_rates(rates))
+    deltas = change_in_rates(rates)
+    post = format_data(rates, deltas)
+    post_to_webhook('currency_update', post)
+    post_to_webhook('daily_currency_rates', post)
+    print('done')
 
 if __name__ == '__main__':
     main()
