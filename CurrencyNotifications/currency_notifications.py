@@ -1,4 +1,4 @@
-import requests, json, os
+import requests, json, os, time
 from datetime import date, datetime
 
 #api to get currencies rates
@@ -69,7 +69,6 @@ def main():
     rates = get_latest_rates()
     deltas = change_in_rates(rates)
     post = format_data(rates, deltas)
-    post_to_webhook('currency_update', post)
     post_to_webhook('daily_currency_rates', post)
     print('done')
 
