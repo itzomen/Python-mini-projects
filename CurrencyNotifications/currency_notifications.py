@@ -76,7 +76,8 @@ def main():
     		post_to_webhook('daily_currency_rates', all_posts)
     		print("\nDaily Update Sent")
     		posts = []
-    	time.sleep(5)
+    	# program remains inactive
+    	time.sleep(30)
 
 if __name__ == '__main__':
     main()
