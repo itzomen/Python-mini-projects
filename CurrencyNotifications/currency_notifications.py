@@ -58,19 +58,25 @@ def format_data(rate_dict, delta_dict):
  	for pair, rates in rate_dict.items():
  		current = rates['rate']
  		delta = delta_dict[pair]
- 		print(current, delta)
  		line = '{} Rate: <b>{}</b> Change <i>{}</i>'.format(pair, current, delta)
  		lines.append(line)
  	return '<br>'.join(lines)
 
 			
 def main():
-  #  while input("Running...\n Enter 'quit' to exit\n") != 'quit':
-    rates = get_latest_rates()
-    deltas = change_in_rates(rates)
-    post = format_data(rates, deltas)
-    post_to_webhook('daily_currency_rates', post)
-    print('done')
+    posts = []
+    print('Running......')
+    while True:
+    	rates = get_latest_rates()  
+    	deltas = change_in_rates(rates)
+    	posts.append(format_data(rates, deltas))
+    	# send updates
+    	if len(posts)== 3:
+    		all_posts = '<br>'.join(posts)
+    		post_to_webhook('daily_currency_rates', all_posts)
+    		print("\nDaily Update Sent")
+    		posts = []
+    	time.sleep(5)
 
 if __name__ == '__main__':
     main()
