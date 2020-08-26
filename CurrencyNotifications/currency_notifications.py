@@ -47,11 +47,11 @@ def change_in_rates(dict):
 
 def post_to_webhook(event, value):
     #data that will be sent to IFTTT service
-    data = {'post': value}
+    data = {'value1': value}
     # inserts event
     event_url = IFTTT_URL.format(event)
     # Sends a HTTP POST request to the webhook URL
-    requests.post(event_url, data)
+    requests.post(event_url, json=data)
     
 def format_data(rate_dict, delta_dict):
  	lines = []
