@@ -1,1 +1,0 @@
-### Twitty - My Twitter bot
