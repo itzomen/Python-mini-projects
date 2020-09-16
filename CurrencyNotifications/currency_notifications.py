@@ -48,7 +48,7 @@ def change_in_rates(dict):
 def post_to_webhook(event, value):
     #data that will be sent to IFTTT service
     data = {'value1': value}
-    # inserts event
+    # inserts event name into IFTTT URL
     event_url = IFTTT_URL.format(event)
     # Sends a HTTP POST request to the webhook URL
     requests.post(event_url, json=data)
@@ -73,6 +73,7 @@ def main():
     	# send updates
     	if len(posts)== 3:
     		all_posts = '<br>'.join(posts)
+                #'daily_currency_rates' is the event name I created from the IFTTT app
     		post_to_webhook('daily_currency_rates', all_posts)
     		print("\nDaily Update Sent")
     		posts = []
